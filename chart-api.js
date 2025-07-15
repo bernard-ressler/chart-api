@@ -9,10 +9,14 @@ app.post("/chart-upload", async (req, res) => {
   const { chartUrl } = req.body;
 
   try {
-    const response = await axios.get(chartUrl, {
-      responseType: "arraybuffer",
-      timeout: 5000
-    });
+   const response = await axios.get(chartUrl, {
+  responseType: "arraybuffer",
+  timeout: 10000,
+  maxRedirects: 5,
+  headers: {
+    "User-Agent": "Mozilla/5.0"
+  }
+});
 
     const base64 = Buffer.from(response.data).toString("base64");
 
